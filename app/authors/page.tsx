@@ -1,6 +1,7 @@
 import { Stack } from "../../lib/contentstack";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import SpotlightCard from "@/components/SpotlightCard";
 
 async function getAuthors() {
   const Query = Stack.ContentType("author").Query();
@@ -31,9 +32,8 @@ export default async function AuthorsPage() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 animate-fade-in-up delay-200 relative">
           {authors.map((author: any) => (
             <Link key={author.uid} href={`/authors/${author.uid}`} className="h-full">
-              <div className="group relative h-full">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent to-blue-600 rounded-3xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
-                <div className="relative bg-[#090b14] border border-white/5 rounded-3xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col items-center">
+              <SpotlightCard className="h-full group">
+                <div className="relative p-8 text-center h-full flex flex-col items-center">
                   <div className="w-28 h-28 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white/5 group-hover:border-accent/50 transition-colors duration-500">
                     <img 
                       src={author.profile_image?.url || `https://ui-avatars.com/api/?name=${encodeURIComponent(author.name)}&background=random`} 
@@ -49,7 +49,7 @@ export default async function AuthorsPage() {
                     />
                   )}
                 </div>
-              </div>
+              </SpotlightCard>
             </Link>
           ))}
         </div>

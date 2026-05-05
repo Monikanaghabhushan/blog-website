@@ -85,8 +85,7 @@ const Stack = {
           if (q) {
             try {
               const res = await q.find();
-              // If Contentstack actually connects but returns empty array for some reason, maybe fallback?
-              // But a 412 throws an error, which we catch.
+              console.log(`✅ Contentstack successfully returned ${res?.[0]?.length || 0} items for type '${type}'.`);
               return res;
             } catch (e) {
               console.warn("⚠️ Contentstack Connection Failed. Falling back to Mock Data.");

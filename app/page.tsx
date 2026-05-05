@@ -1,6 +1,7 @@
 import { Stack } from "../lib/contentstack";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import SpotlightCard from "@/components/SpotlightCard";
 
 async function getBlogs() {
   const Query = Stack.ContentType("blog").Query();
@@ -25,7 +26,7 @@ export default async function Home() {
             ✨ Premium Access
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 text-white leading-tight">
-            Elevate Your Knowledge <br className="hidden md:block"/> With <span className="text-gradient">NexBlog</span>
+            Elevate Your Knowledge <br className="hidden md:block"/> With <span className="text-gradient-animated font-black">NexBlog</span>
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Deep dives, tutorials, and perspectives from industry experts to help you stay ahead of the curve.
@@ -47,19 +48,16 @@ export default async function Home() {
                 : "md:col-span-1 md:row-span-1";
 
             return (
-              <div key={blog.uid} className={`group ${spanClass}`}>
-                <div className="bento-card h-full flex flex-col">
-                  {/* Glow effect on hover */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-accent-secondary/20 blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                  
+              <SpotlightCard key={blog.uid} className={spanClass}>
+                <div className="h-full flex flex-col group">
                   <Link href={blog.url ? `/blog/${blog.url.replace(/^\/?(blog\/)?/, '')}` : '#'} className="relative h-full flex flex-col z-10">
-                    <div className={`${isFeatured ? 'h-80' : 'h-48'} overflow-hidden relative`}>
+                    <div className={`${isFeatured ? 'h-80' : 'h-48'} overflow-hidden relative rounded-t-3xl`}>
                       <img
                         src={blog.featured_image?.url || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"}
                         alt={blog.title ?? "Blog thumbnail"}
                         className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#050914] via-[#050914]/40 to-transparent opacity-80"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#090b14] via-[#090b14]/40 to-transparent opacity-90"></div>
                     </div>
 
                     <div className="p-6 flex flex-col flex-grow">
@@ -73,7 +71,7 @@ export default async function Home() {
                         <span className="text-[10px] uppercase tracking-widest text-accent font-bold">Insight</span>
                       </div>
 
-                      <h2 className={`${isFeatured ? 'text-3xl' : 'text-lg'} font-bold mb-4 text-white group-hover:text-accent transition-colors leading-tight`}>
+                      <h2 className={`${isFeatured ? 'text-3xl' : 'text-xl'} font-bold mb-4 text-white group-hover:text-accent transition-colors leading-tight`}>
                         {blog.title}
                       </h2>
 
@@ -97,7 +95,7 @@ export default async function Home() {
                     </div>
                   </Link>
                 </div>
-              </div>
+              </SpotlightCard>
             );
           })}
         </div>
